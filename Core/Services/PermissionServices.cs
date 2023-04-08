@@ -27,9 +27,17 @@ namespace Core.Services
 
         }
 
-        public async Task<Permissions> PutPermissionServ(Permissions permission)
+        public async Task<Permissions> PutPermissionServ(PermissionModifyRequestContract permission)
         {
-            return await _permissionsRepository.ModifyPermissionRep(permission);
+            var permissionEntity = new Permissions
+            {
+                Id = permission.Id,
+                EmployeeFirstName = permission.EmployeeFirstName,
+                EmployeeLastName = permission.EmployeeLastName,
+                PermissionTypeId = permission.PermissionTypeId,
+                PermissionDate = DateTime.Now,
+            };
+            return await _permissionsRepository.ModifyPermissionRep(permissionEntity);
         }
     }
 }

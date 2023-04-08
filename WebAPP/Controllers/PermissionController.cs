@@ -7,6 +7,7 @@ using Core.Interfaces;
 using Core.Entities;
 using System.Security;
 using Core.Entities.Contracts;
+using Nest;
 
 namespace WebAPP.Controllers
 {
@@ -64,15 +65,16 @@ namespace WebAPP.Controllers
 
         [Microsoft.AspNetCore.Mvc.HttpPut]
         [Microsoft.AspNetCore.Mvc.Route("ModifyPermission")]
-        public async Task<ActionResult<Permissions>> ModifyPermission(PermissionRequestBody permissionBody)
+        public async Task<ActionResult<Permissions>> ModifyPermission(PermissionModifyRequestBody permissionBody)
         {
-            var permission = new PermissionRequestContract()
+            var permission = new PermissionModifyRequestContract()
             {
+                Id = permissionBody.Id,
                 EmployeeFirstName = permissionBody.EmployeeFirstName,
                 EmployeeLastName = permissionBody.EmployeeLastName,
                 PermissionTypeId = permissionBody.PermissionTypeId
             };
-            var newPermission = await _permissionServices.PostPermissionServ(permission);
+            var newPermission = await _permissionServices.PutPermissionServ(permission);
 
             return newPermission;
         }

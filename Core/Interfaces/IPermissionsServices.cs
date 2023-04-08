@@ -10,7 +10,7 @@ namespace Core.Interfaces
 
         Task<Permissions> PostPermissionServ(PermissionRequestContract permission);
 
-        Task<Permissions> PutPermissionServ(Permissions id);
+        Task<Permissions> PutPermissionServ(PermissionModifyRequestContract id);
 
     }
 }

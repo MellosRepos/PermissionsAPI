@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Core.Services;
 using Core.Interfaces;
 using Core.Entities;
+using System.Security;
+using Core.Entities.Contracts;
 
 namespace WebAPP.Controllers
 {
@@ -26,6 +28,7 @@ namespace WebAPP.Controllers
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet]
+        [Microsoft.AspNetCore.Mvc.Route("GetPermissions")]
         public async Task<ActionResult<IEnumerable<GetPermissionsResponse>>> RetrievePermissions()
         {
             var PermissionsList = await _permissionServices.GetPermissions();
@@ -43,28 +46,35 @@ namespace WebAPP.Controllers
             }
             return GetPermissionsResponse;
         }
-        //<summary>
-        // This is the controller for the Permissions API
-        //</summary>
-        //<param name="id">The id of the permission</param>
-        [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
-        public async Task<ActionResult<GetPermissionsResponse>> RetrievePermissionsById(int id)
-        {
-            var permission = _permissions.Find(p => p.Id == id);
 
-            if (permission == null)
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Microsoft.AspNetCore.Mvc.Route("RequestPermission")]
+        public async Task<ActionResult<Permissions>> AddPermission(PermissionRequestBody permissionBody)
+        {
+            var permission = new PermissionRequestContract()
             {
-                return NotFound();
-            }
+                EmployeeFirstName = permissionBody.EmployeeFirstName,
+                EmployeeLastName = permissionBody.EmployeeLastName,
+                PermissionTypeId = permissionBody.PermissionTypeId
+            };
+            var newPermission = await _permissionServices.PostPermissionServ(permission);
 
-            return permission;
+            return newPermission;
         }
-        [Microsoft.AspNetCore.Mvc.HttpPut]
-        public async Task<ActionResult> ModifyPermission(ModifyPermissionRequestBody modifyPermissionRequestBody)
-        {
-            // Your code here
-            return Ok();
 
+        [Microsoft.AspNetCore.Mvc.HttpPut]
+        [Microsoft.AspNetCore.Mvc.Route("ModifyPermission")]
+        public async Task<ActionResult<Permissions>> ModifyPermission(PermissionRequestBody permissionBody)
+        {
+            var permission = new PermissionRequestContract()
+            {
+                EmployeeFirstName = permissionBody.EmployeeFirstName,
+                EmployeeLastName = permissionBody.EmployeeLastName,
+                PermissionTypeId = permissionBody.PermissionTypeId
+            };
+            var newPermission = await _permissionServices.PostPermissionServ(permission);
+
+            return newPermission;
         }
 
     }

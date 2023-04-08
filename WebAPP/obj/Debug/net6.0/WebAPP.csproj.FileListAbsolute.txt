@@ -85,3 +85,5 @@ D:\Code\Learning\PermissionsAPI\WebAPP\obj\Debug\net6.0\refint\WebAPP.dll
 D:\Code\Learning\PermissionsAPI\WebAPP\obj\Debug\net6.0\WebAPP.pdb
 D:\Code\Learning\PermissionsAPI\WebAPP\obj\Debug\net6.0\WebAPP.genruntimeconfig.cache
 D:\Code\Learning\PermissionsAPI\WebAPP\obj\Debug\net6.0\ref\WebAPP.dll
+D:\Code\Learning\PermissionsAPI\WebAPP\bin\Debug\net6.0\Elasticsearch.Net.dll
+D:\Code\Learning\PermissionsAPI\WebAPP\bin\Debug\net6.0\Nest.dll
